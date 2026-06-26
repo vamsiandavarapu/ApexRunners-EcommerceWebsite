@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collection | APEX RUNNERS</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .collection-hero {
+      padding-top: 120px;
+      padding-bottom: 40px;
+      text-align: center;
+    }
+    
+    .collection-hero h1 {
+      font-size: clamp(3rem, 6vw, 5rem);
+      margin-bottom: 10px;
+    }
+
+    .filter-bar {
+      position: sticky;
+      top: 90px;
+      z-index: 100;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      border-radius: var(--radius);
+    }
+
+    .filter-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .filter-links a {
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 100px;
+      border: 1px solid transparent;
+    }
+
+    .filter-links a.active, .filter-links a:hover {
+      background: rgba(255,255,255,0.3);
+      border-color: rgba(255,255,255,0.5);
+    }
+
+    .sort-dropdown select {
+      background: rgba(255,255,255,0.3);
+      border: var(--glass-border);
+      padding: 10px 20px;
+      border-radius: 100px;
+      font-family: inherit;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 100px;
+    }
+
+    .page-num {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-weight: 600;
+      border: var(--glass-border);
+      background: rgba(255,255,255,0.2);
+    }
+
+    .page-num.active {
+      background: var(--text-dark);
+      color: white;
+    }
+
+    /* Modal Adjustments */
+    .modal-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      padding: 40px;
+    }
+
+    .modal-img-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 20px;
+    }
+
+    .modal-img-wrap img {
+      width: 100%;
+      filter: drop-shadow(0 20px 20px rgba(0,0,0,0.15));
+      animation: bobble 4s ease-in-out infinite;
+    }
+
+    .modal-details h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 1024px) {
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .products-grid { grid-template-columns: 1fr; }
+      .filter-bar { flex-direction: column; gap: 15px; }
+      .modal-layout { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="particles-container"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar glass">
+    <div class="nav-brand"><a href="index.html">APEX</a></div>
+    <ul class="nav-links">
+      <li><a href="index.html">New Arrivals</a></li>
+      <li><a href="collection.html">Men</a></li>
+      <li><a href="collection.html" class="active">Collections</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="nav-icons">
+      <button class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+      <button class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+      <a href="cart.html" class="icon-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg><span class="cart-badge">0</span>
+      </a>
+      <button class="mobile-menu-btn">☰</button>
+    </div>
+  </nav>
+
+  <div class="mobile-drawer glass">
+    <a href="index.html">New Arrivals</a>
+    <a href="collection.html">Men</a>
+    <a href="collection.html">Collections</a>
+    <a href="about.html">About</a>
+  </div>
+
+  <section class="container collection-hero">
+    <h1 class="reveal stagger-1">COLLECTION</h1>
+    <p class="reveal stagger-2" style="max-width: 600px; margin: 0 auto; color: var(--text-muted);">Explore the complete lineup of Apex Runner silhouettes, colors, and limited editions.</p>
+  </section>
+
+  <section class="container">
+    <div class="filter-bar glass reveal stagger-3">
+      <div class="filter-links">
+        <a href="#" class="active">All</a>
+        <a href="#">New Arrivals</a>
+        <a href="#">Best Sellers</a>
+      </div>
+      <div class="sort-dropdown">
+        <select>
+          <option>Sort by: Featured</option>
+          <option>Newest</option>
+          <option>Price: High-Low</option>
+          <option>Price: Low-High</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="products-grid" id="products-grid">
+      <!-- Skeletons -->
+      <div class="product-card glass skeleton" style="height: 450px;"></div>
+      <div class="product-card glass skeleton" style="height: 450px;"></div>
+      <div class="product-card glass skeleton" style="height: 450px;"></div>
+      <div class="product-card glass skeleton" style="height: 450px;"></div>
+      <div class="product-card glass skeleton" style="height: 450px;"></div>
+      <div class="product-card glass skeleton" style="height: 450px;"></div>
+      <div class="product-card glass skeleton" style="height: 450px;"></div>
+      <div class="product-card glass skeleton" style="height: 450px;"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="glass">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4 style="font-weight: 900; font-size: 1.8rem; letter-spacing: -1px;">APEX</h4>
+          <p style="color: var(--text-muted); max-width: 250px;">Elevating performance and culture since 2010. Run Your World.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <div class="footer-links">
+            <a href="collection.html">New Arrivals</a>
+            <a href="collection.html">Men</a>
+            <a href="collection.html">Sale</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <div class="footer-links">
+            <a href="#">Order Status</a>
+            <a href="#">Shipping & Returns</a>
+            <a href="#">FAQ</a>
+            <a href="#">Contact Us</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Stay in the loop</h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">Sign up for exclusive drops and news.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Email address" required>
+            <button type="submit">→</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2024 Apex Runners. All Rights Reserved</div>
+        <div class="social-icons">
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Twitter X">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9.101 23.685v-9.58H6.559v-3.411h2.542V8.139c0-2.518 1.538-3.89 3.785-3.89 1.076 0 2.002.08 2.272.116v2.634h-1.558c-1.222 0-1.458.58-1.458 1.433v1.881h2.915l-.38 3.411h-2.535v9.58H9.101z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051C.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Quick View Modal -->
+  <div class="modal-overlay" id="quickViewModal">
+    <button class="modal-close" onclick="closeModal()" style="background: rgba(0,0,0,0.1); color: #333;">✕</button>
+    <div class="modal-content" style="background: #fff; border-radius: 28px; box-shadow: 0 40px 80px rgba(0,0,0,0.2);">
+      <div class="modal-layout" id="modal-content-area">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/animations.js"></script>
+  <script>
+    let productsData = [];
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      productsData = await fetchProducts();
+      
+      // Simulate 300ms network delay for effect
+      setTimeout(() => {
+        renderProducts(productsData);
+      }, 300);
+    });
+
+    function renderProducts(products) {
+      const container = document.getElementById('products-grid');
+      container.innerHTML = '';
+      
+      products.slice(0, 8).forEach((p, idx) => {
+        const pObj = JSON.stringify({id: p.id, name: p.name, price: p.price, image: p.image, colorway: p.colorway}).replace(/"/g, '&quot;');
+        
+        container.innerHTML += `
+          <div class="product-card glass hover-lift reveal" style="animation-delay: ${(idx % 4) * 100}ms">
+            ${p.tag ? `<div class="badge ${p.tag.toLowerCase()}" style="position: absolute; top: 20px; left: 20px; z-index: 10;">${p.tag}</div>` : ''}
+            <button class="wishlist-btn" onclick="toggleWishlist(this, event)" style="position: absolute; top: 20px; right: 20px; z-index: 10; transition: transform 0.2s;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+            <div class="product-image-wrap" style="cursor: pointer;" onclick="openModal('${p.id}')">
+              <img src="${p.image}" alt="${p.name}">
+            </div>
+            <div class="product-info">
+              <h4><a href="product.html?id=${p.id}">${p.name}</a></h4>
+              <div class="colorway">${p.colorway}</div>
+              <div class="price">$${p.price.toFixed(2)}</div>
+              <div class="color-dots">
+                ${p.colors.map(c => `<div class="color-dot" style="background: ${c}"></div>`).join('')}
+              </div>
+              <button class="product-add-btn" onclick="event.stopPropagation(); cart.addItem(${pObj}, '${p.sizes[0]}', '${p.colors[0]}', 1)">ADD TO CART</button>
+            </div>
+          </div>
+        `;
+      });
+
+      // trigger observer for new reveals
+      const newReveals = container.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if(e.isIntersecting) {
+            e.target.classList.add('active');
+            observer.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      newReveals.forEach(r => observer.observe(r));
+    }
+
+    function openModal(id) {
+      const p = productsData.find(prod => prod.id === id);
+      if(!p) return;
+
+      const pObj = JSON.stringify({id: p.id, name: p.name, price: p.price, image: p.image, colorway: p.colorway}).replace(/"/g, '&quot;');
+
+      document.getElementById('modal-content-area').innerHTML = `
+        <div class="modal-img-wrap">
+          <img src="${p.image}" alt="${p.name}">
+        </div>
+        <div class="modal-details">
+          <div style="font-weight: 700; color: var(--primary); margin-bottom: 10px;">${p.colorway}</div>
+          <h2>${p.name}</h2>
+          <div style="font-size: 1.5rem; font-weight: 800; margin-bottom: 20px;">$${p.price.toFixed(2)}</div>
+          
+          <div style="margin-bottom: 20px;">
+            <div style="font-weight: 600; margin-bottom: 10px;">Select Size</div>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+              ${p.sizes.map((s, i) => `<button class="size-btn ${i===0 ? 'active' : ''}" style="width: 40px; height: 40px; border:1px solid rgba(0,0,0,0.1); border-radius:50%; background: ${i===0 ? 'var(--text-dark)' : 'transparent'}; color: ${i===0 ? 'white' : 'inherit'};">${s}</button>`).join('')}
+            </div>
+          </div>
+
+          <button class="btn btn-primary magnetic" style="width: 100%; margin-bottom: 10px;" onclick="cart.addItem(${pObj}, '${p.sizes[0]}', '${p.colors[0]}', 1); closeModal();">
+            ADD TO CART
+          </button>
+          <a href="product.html?id=${p.id}" class="btn btn-outline" style="width: 100%; text-align: center; display: block;">View Full Details</a>
+        </div>
+      `;
+
+      document.getElementById('quickViewModal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('quickViewModal').classList.remove('active');
+    }
+
+    // Close modal on escape
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape') closeModal();
+    });
+    
+    // Close modal on outside click
+    document.getElementById('quickViewModal').addEventListener('click', (e) => {
+      if(e.target.id === 'quickViewModal') closeModal();
+    });
+
+    function toggleWishlist(btn, e) {
+      e.stopPropagation(); // prevent modal opening
+      const icon = btn.querySelector('svg');
+      if(icon.getAttribute('fill') === 'none') {
+        icon.setAttribute('fill', 'var(--primary)');
+        icon.setAttribute('stroke', 'var(--primary)');
+        btn.style.transform = 'scale(1.2)';
+        setTimeout(() => btn.style.transform = 'scale(1)', 200);
+      } else {
+        icon.setAttribute('fill', 'none');
+        icon.setAttribute('stroke', 'currentColor');
+      }
+    }
+  </script>
+</body>
+</html>

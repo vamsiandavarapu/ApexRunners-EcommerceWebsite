@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Story | APEX RUNNERS</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .about-hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .about-hero h1 {
+      font-size: clamp(4rem, 8vw, 8rem);
+      letter-spacing: -3px;
+      line-height: 1;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    .timeline {
+      position: relative;
+      max-width: 1000px;
+      margin: 100px auto;
+      padding: 40px 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      width: 4px;
+      background: rgba(255,255,255,0.3);
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -2px;
+      border-radius: 4px;
+    }
+
+    .timeline-item {
+      padding: 10px 40px;
+      position: relative;
+      background-color: inherit;
+      width: 50%;
+      margin-bottom: 60px;
+    }
+
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      right: -10px;
+      background-color: var(--primary);
+      border: 4px solid white;
+      top: 15px;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .left {
+      left: 0;
+    }
+
+    .right {
+      left: 50%;
+    }
+
+    .right::after {
+      left: -10px;
+    }
+
+    .timeline-content {
+      padding: 30px;
+      border-radius: var(--radius);
+      position: relative;
+    }
+
+    .timeline-year {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .mission-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin: 100px 0;
+    }
+
+    .mission-card {
+      padding: 40px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .mission-icon {
+      font-size: 3rem;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.3);
+      border-radius: 50%;
+    }
+
+    @media (max-width: 768px) {
+      .timeline::before {
+        left: 31px;
+      }
+      .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+      }
+      .timeline-item::after {
+        left: 21px;
+      }
+      .right {
+        left: 0%;
+      }
+      .mission-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="particles-container"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar glass">
+    <div class="nav-brand"><a href="index.html">APEX</a></div>
+    <ul class="nav-links">
+      <li><a href="index.html">New Arrivals</a></li>
+      <li><a href="collection.html">Men</a></li>
+      <li><a href="collection.html">Collections</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+    </ul>
+    <div class="nav-icons">
+      <button class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+      <button class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+      <a href="cart.html" class="icon-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg><span class="cart-badge">0</span>
+      </a>
+      <button class="mobile-menu-btn">☰</button>
+    </div>
+  </nav>
+
+  <div class="mobile-drawer glass">
+    <a href="index.html">New Arrivals</a>
+    <a href="collection.html">Men</a>
+    <a href="collection.html">Collections</a>
+    <a href="about.html">About</a>
+  </div>
+
+  <section class="about-hero container">
+    <div class="reveal stagger-1">
+      <h1>OUR STORY</h1>
+    </div>
+    <p class="reveal stagger-2" style="max-width: 600px; font-size: 1.2rem; margin-top: 20px;">
+      More than a shoe. It's a symbol of greatness, defying gravity since 1984.
+    </p>
+  </section>
+
+  <section class="container">
+    <div class="timeline">
+      <div class="timeline-item left reveal" style="transform: translateX(-50px);">
+        <div class="timeline-content glass">
+          <div class="timeline-year">1984</div>
+          <h3>The Beginning</h3>
+          <p>Michael Jordan signs with Nike. The Apex Runner 1 is born, changing sneaker culture forever despite being banned by the NBA for its bold colors.</p>
+        </div>
+      </div>
+      <div class="timeline-item right reveal" style="transform: translateX(50px);">
+        <div class="timeline-content glass">
+          <div class="timeline-year">1988</div>
+          <h3>The Jumpman Era</h3>
+          <p>Tinker Hatfield introduces the Apex Runner 3, featuring the iconic Jumpman logo and visible Air unit, solidifying the brand's premium status.</p>
+        </div>
+      </div>
+      <div class="timeline-item left reveal" style="transform: translateX(-50px);">
+        <div class="timeline-content glass">
+          <div class="timeline-year">1996</div>
+          <h3>The Flu Game</h3>
+          <p>Jordan battles through illness in the Finals wearing the Apex Runner 12, elevating the shoe to legendary status.</p>
+        </div>
+      </div>
+      <div class="timeline-item right reveal" style="transform: translateX(50px);">
+        <div class="timeline-content glass">
+          <div class="timeline-year">2024</div>
+          <h3>40 Years of Legacy</h3>
+          <p>Four decades later, Apex Runner remains the pinnacle of basketball performance and streetwear culture globally.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container mission-grid">
+    <div class="mission-card glass hover-lift reveal stagger-1">
+      <div class="mission-icon">⚡</div>
+      <h3>Performance</h3>
+      <p>Engineered for the highest level of basketball, pushing the boundaries of innovation and technology.</p>
+    </div>
+    <div class="mission-card glass hover-lift reveal stagger-2">
+      <div class="mission-icon">🔥</div>
+      <h3>Culture</h3>
+      <p>Transcending the court to become a staple of global streetwear and fashion culture.</p>
+    </div>
+    <div class="mission-card glass hover-lift reveal stagger-3">
+      <div class="mission-icon">👑</div>
+      <h3>Legacy</h3>
+      <p>Honoring the greatness of Michael Jordan while inspiring the next generation of athletes.</p>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section glass" style="margin-bottom: 100px;">
+    <div class="container stats-grid">
+      <div class="reveal stagger-1">
+        <div class="stat-num count-up" data-count="40" data-suffix=" Yrs">0</div>
+        <div style="font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Of Legacy</div>
+      </div>
+      <div class="reveal stagger-2">
+        <div class="stat-num count-up" data-count="500" data-suffix="+">0</div>
+        <div style="font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Colorways</div>
+      </div>
+      <div class="reveal stagger-3">
+        <div class="stat-num count-up" data-count="120" data-suffix="+">0</div>
+        <div style="font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Countries</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="container section-pad" style="text-align: center; margin-bottom: 100px;">
+    <div class="glass reveal" style="padding: 80px 40px; display: flex; flex-direction: column; align-items: center; gap: 20px;">
+      <h2>Be Part of the Legacy</h2>
+      <a href="collection.html" class="btn btn-primary magnetic" style="margin-top: 20px;">SHOP COLLECTION</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="glass">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4 style="font-weight: 900; font-size: 1.8rem; letter-spacing: -1px;">APEX</h4>
+          <p style="color: var(--text-muted); max-width: 250px;">Elevating performance and culture since 2010. Run Your World.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <div class="footer-links">
+            <a href="collection.html">New Arrivals</a>
+            <a href="collection.html">Men</a>
+            <a href="collection.html">Sale</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <div class="footer-links">
+            <a href="#">Order Status</a>
+            <a href="#">Shipping & Returns</a>
+            <a href="#">FAQ</a>
+            <a href="#">Contact Us</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Stay in the loop</h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">Sign up for exclusive drops and news.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Email address" required>
+            <button type="submit">→</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2024 Apex Runners. All Rights Reserved</div>
+        <div class="social-icons">
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Twitter X">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9.101 23.685v-9.58H6.559v-3.411h2.542V8.139c0-2.518 1.538-3.89 3.785-3.89 1.076 0 2.002.08 2.272.116v2.634h-1.558c-1.222 0-1.458.58-1.458 1.433v1.881h2.915l-.38 3.411h-2.535v9.58H9.101z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051C.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/animations.js"></script>
+</body>
+</html>

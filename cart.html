@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart | APEX RUNNERS</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .cart-layout {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 50px;
+      padding-top: 140px;
+      padding-bottom: 100px;
+      align-items: start;
+    }
+
+    .order-summary {
+      padding: 30px;
+      position: sticky;
+      top: 100px;
+    }
+
+    .cart-item {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .cart-item-img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 10px rgba(0,0,0,0.1));
+    }
+
+    .cart-item-details {
+      flex: 1;
+      min-width: 200px;
+      padding-right: 30px; /* space for close button */
+    }
+
+    .cart-item-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    @media (max-width: 1024px) {
+      .cart-layout {
+        grid-template-columns: 1fr;
+      }
+      .order-summary {
+        position: relative;
+        top: 0;
+      }
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+
+    .summary-total {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin: 20px 0;
+      padding-top: 20px;
+      border-top: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .promo-input {
+      display: flex;
+      margin: 30px 0;
+    }
+
+    .promo-input input {
+      flex: 1;
+      padding: 12px 15px;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: var(--radius) 0 0 var(--radius);
+      background: rgba(255,255,255,0.4);
+      outline: none;
+      font-family: inherit;
+    }
+
+    .promo-input button {
+      padding: 12px 20px;
+      background: var(--text-dark);
+      color: white;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      font-weight: 600;
+    }
+
+    .security-badges {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .payment-icons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .payment-icons span {
+      background: rgba(255,255,255,0.5);
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    @media (max-width: 1024px) {
+      .cart-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="particles-container"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar glass">
+    <div class="nav-brand"><a href="index.html">APEX</a></div>
+    <ul class="nav-links">
+      <li><a href="index.html">New Arrivals</a></li>
+      <li><a href="collection.html">Men</a></li>
+      <li><a href="collection.html">Collections</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="nav-icons">
+      <button class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+      <button class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+      <a href="cart.html" class="icon-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg><span class="cart-badge">0</span>
+      </a>
+      <button class="mobile-menu-btn">☰</button>
+    </div>
+  </nav>
+
+  <div class="mobile-drawer glass">
+    <a href="index.html">New Arrivals</a>
+    <a href="collection.html">Men</a>
+    <a href="collection.html">Collections</a>
+    <a href="about.html">About</a>
+  </div>
+
+  <div class="container cart-layout">
+    <div class="cart-items reveal stagger-1">
+      <h2 style="margin-bottom: 30px;">Shopping Cart</h2>
+      
+      <div id="cart-items-container">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+
+    <div class="reveal stagger-2">
+      <div class="order-summary glass">
+        <h3 style="margin-bottom: 25px;">Order Summary</h3>
+        
+        <div class="summary-row">
+          <span style="color: var(--text-muted);">Subtotal</span>
+          <span id="cart-subtotal">$0.00</span>
+        </div>
+        <div class="summary-row">
+          <span style="color: var(--text-muted);">Shipping</span>
+          <span style="color: #2e7d32; font-weight: 600;">Free</span>
+        </div>
+        <div class="summary-row">
+          <span style="color: var(--text-muted);">Estimated Tax (8%)</span>
+          <span id="cart-tax">$0.00</span>
+        </div>
+
+        <div class="promo-input">
+          <input type="text" placeholder="Promo code">
+          <button>Apply</button>
+        </div>
+
+        <div class="summary-row summary-total">
+          <span>Total</span>
+          <span id="cart-total">$0.00</span>
+        </div>
+
+        <button class="btn btn-primary magnetic btn-full" style="font-size: 1.1rem;">CHECKOUT</button>
+
+        <div class="security-badges">
+          <span>🔒 Secure Checkout</span>
+          <span>✓ 256-bit SSL</span>
+        </div>
+        
+        <div class="payment-icons">
+          <span>VISA</span>
+          <span>MASTERCARD</span>
+          <span>PAYPAL</span>
+          <span>APPLE PAY</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recently Viewed -->
+  <section class="container section-pad">
+    <h3 class="reveal" style="margin-bottom: 30px;">Recently Viewed</h3>
+    <div class="horizontal-scroll">
+      <!-- Just hardcoding a couple for UI sake, logic could be dynamic -->
+      <div class="product-card glass hover-lift reveal stagger-1" style="min-width: 250px;">
+        <div class="product-image-wrap" style="height: 180px;">
+          <a href="product.html?id=2"><img src="images/img2.png?v=2" alt="Jordan"></a>
+        </div>
+        <div class="product-info">
+          <h4>Apex Runner 1 Mid</h4>
+          <div class="price">$125.00</div>
+        </div>
+      </div>
+      <div class="product-card glass hover-lift reveal stagger-2" style="min-width: 250px;">
+        <div class="product-image-wrap" style="height: 180px;">
+          <a href="product.html?id=3"><img src="images/img3.png?v=2" alt="Jordan"></a>
+        </div>
+        <div class="product-info">
+          <h4>Apex Runner 1 Low</h4>
+          <div class="price">$110.00</div>
+        </div>
+      </div>
+      <div class="product-card glass hover-lift reveal stagger-3" style="min-width: 250px;">
+        <div class="product-image-wrap" style="height: 180px;">
+          <a href="product.html?id=4"><img src="images/img4.png?v=2" alt="Jordan"></a>
+        </div>
+        <div class="product-info">
+          <h4>Apex Runner 4 Retro</h4>
+          <div class="price">$225.00</div>
+        </div>
+      </div>
+      <div class="product-card glass hover-lift reveal stagger-4" style="min-width: 250px;">
+        <div class="product-image-wrap" style="height: 180px;">
+          <a href="product.html?id=5"><img src="images/img5.png" alt="Jordan"></a>
+        </div>
+        <div class="product-info">
+          <h4>Apex Runner 1 High</h4>
+          <div class="price">$170.00</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="glass">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4 style="font-weight: 900; font-size: 1.8rem; letter-spacing: -1px;">APEX</h4>
+          <p style="color: var(--text-muted); max-width: 250px;">Elevating performance and culture since 2010. Run Your World.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <div class="footer-links">
+            <a href="collection.html">New Arrivals</a>
+            <a href="collection.html">Men</a>
+            <a href="collection.html">Sale</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <div class="footer-links">
+            <a href="#">Order Status</a>
+            <a href="#">Shipping & Returns</a>
+            <a href="#">FAQ</a>
+            <a href="#">Contact Us</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Stay in the loop</h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">Sign up for exclusive drops and news.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Email address" required>
+            <button type="submit">→</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2024 Apex Runners. All Rights Reserved</div>
+        <div class="social-icons">
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Twitter X">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9.101 23.685v-9.58H6.559v-3.411h2.542V8.139c0-2.518 1.538-3.89 3.785-3.89 1.076 0 2.002.08 2.272.116v2.634h-1.558c-1.222 0-1.458.58-1.458 1.433v1.881h2.915l-.38 3.411h-2.535v9.58H9.101z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051C.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/animations.js"></script>
+</body>
+</html>
